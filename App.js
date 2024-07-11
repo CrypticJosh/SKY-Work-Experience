@@ -1,20 +1,32 @@
-
-// App.js
-import * as React from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Provider as PaperProvider } from 'react-native-paper';
+import ChoiceScreen from './screens/ChoiceScreen';
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
 import HomeScreen from './screens/HomeScreen';
-import RecipeScreen from './screens/RecipeScreen.js';
+import RecipeDetailScreen from './screens/RecipeDetailScreen';
+import { AuthProvider } from './contexts/AuthContext';
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Snacks from Scratch' }} />
-        <Stack.Screen name="Recipe" component={RecipeScreen} options={{ title: 'Recipe Details' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider>
+      <AuthProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Back">
+            <Stack.Screen name="Back" component={ChoiceScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
+    </PaperProvider>
   );
-}
+};
+
+export default App;
