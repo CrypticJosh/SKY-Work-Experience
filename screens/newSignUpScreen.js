@@ -1,9 +1,20 @@
-import { Text, SafeAreaView, StyleSheet, View, Alert, Image, Switch } from 'react-native';
+import {
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Alert,
+  Image,
+  Switch,
+} from 'react-native';
 import * as React from 'react';
 import { Video } from 'expo-av';
 import { TextInput, Button } from 'react-native-paper';
-import {Kanit_200ExtraLight, Kanit_400Regular} from '@expo-google-fonts/kanit';
-import {useFonts} from 'expo-font';
+import {
+  Kanit_200ExtraLight,
+  Kanit_400Regular,
+} from '@expo-google-fonts/kanit';
+import { useFonts } from 'expo-font';
 
 export default function App() {
   const video = React.useRef(null);
@@ -12,18 +23,20 @@ export default function App() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [isAccepted, setIsAccepted] = React.useState(false)
-  const [fontsLoaded] = useFonts ({
+  const [isAccepted, setIsAccepted] = React.useState(false);
+  const [fontsLoaded] = useFonts({
     Kanit_200ExtraLight,
-    Kanit_400Regular
+    Kanit_400Regular,
   });
 
   React.useEffect(() => {
-    if (video)  {
-      video.current.playAsync(null);
+    if (video) {
+      video.current?.playAsync(null);
     }
   }, [video]);
-
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -36,8 +49,17 @@ export default function App() {
           isLooping
           resizeMode="cover"
         />
-        <Image style={styles.backButton} source={{uri:'https://pnghq.com/wp-content/uploads/2023/02/left-white-arrow-icon-png-6311.png'}}/>
-        <Button style={styles.backButtonButton} onPress={() => {Alert.alert('Launch Page','User pressed back button')}}></Button>
+        <Image
+          style={styles.backButton}
+          source={{
+            uri: 'https://pnghq.com/wp-content/uploads/2023/02/left-white-arrow-icon-png-6311.png',
+          }}
+        />
+        <Button
+          style={styles.backButtonButton}
+          onPress={() => {
+            Alert.alert('Launch Page', 'User pressed back button');
+          }}></Button>
         <Text style={styles.instructiveText}>Sign Up</Text>
         <Text style={styles.welcomeText}>It's great to have you here!</Text>
         <View style={styles.containerCover}></View>
@@ -46,42 +68,54 @@ export default function App() {
           style={styles.firstNameInput}
           label="First Name"
           value={firstName}
-          onChangeText={firstName => setFirstName(firstName)}
+          onChangeText={(firstName) => setFirstName(firstName)}
         />
         <TextInput
           theme={{ roundness: 10 }}
           style={styles.surnameInput}
           label="Surname"
           value={surname}
-          onChangeText={surname => setSurname(surname)}
+          onChangeText={(surname) => setSurname(surname)}
         />
         <TextInput
           theme={{ roundness: 10 }}
           style={styles.emailInput}
           label="Email"
           value={email}
-          onChangeText={email => setEmail(email)}
+          onChangeText={(email) => setEmail(email)}
         />
         <TextInput
           theme={{ roundness: 10 }}
           style={styles.passwordInput}
           label="Password"
           value={password}
-          onChangeText={password => setPassword(password)}
+          onChangeText={(password) => setPassword(password)}
           secureTextEntry
         />
-         <TextInput
+        <TextInput
           theme={{ roundness: 10 }}
           style={styles.confirmPasswordInput}
           label="Confirm Password"
           value={confirmPassword}
-          onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+          onChangeText={(confirmPassword) =>
+            setConfirmPassword(confirmPassword)
+          }
           secureTextEntry
         />
-        <Switch style={styles.termsSwitch} value={isAccepted} onValueChange={isAccepted => setIsAccepted(isAccepted)}/>
-        <Text style={styles.termsStatement}>I confirm that I have read and accept the Terms of Service.</Text>
-        <Button style={styles.logInButton} onPress={() => {Alert.alert('Login','Event User Sign Up - New')}}>
-        Sign Up
+        <Switch
+          style={styles.termsSwitch}
+          value={isAccepted}
+          onValueChange={(isAccepted) => setIsAccepted(isAccepted)}
+        />
+        <Text style={styles.termsStatement}>
+          I confirm that I have read and accept the Terms of Service.
+        </Text>
+        <Button
+          style={styles.logInButton}
+          onPress={() => {
+            Alert.alert('Login', 'Event User Sign Up - New');
+          }}>
+          Sign Up
         </Button>
       </View>
       <View></View>
@@ -176,7 +210,7 @@ const styles = StyleSheet.create({
     top: 100,
     alignSelf: 'center',
     fontSize: 75,
-    fontFamily: 'Kanit_400Regular'
+    fontFamily: 'Kanit_400Regular',
   },
   welcomeText: {
     zIndex: 2,
@@ -185,8 +219,7 @@ const styles = StyleSheet.create({
     top: 200,
     alignSelf: 'center',
     fontSize: 30,
-    fontFamily: 'Kanit_200ExtraLight'
-
+    fontFamily: 'Kanit_200ExtraLight',
   },
   firstNameInput: {
     height: 50,
@@ -212,7 +245,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     position: 'absolute',
     top: 580,
-    left: 60
+    left: 60,
   },
   termsStatement: {
     zIndex: 2,
@@ -224,4 +257,3 @@ const styles = StyleSheet.create({
     fontFamily: 'Kanit_200ExtraLight',
   },
 });
-
