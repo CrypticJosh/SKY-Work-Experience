@@ -23,7 +23,7 @@ const ChoiceScreen = ({ navigation }) => {
       isLooping
       resizeMode="cover"/>
       <View style={styles.containerCover}></View>
-      <Image source={{uri: 'https://cdn.images.express.co.uk/img/dynamic/78/590x/secondary/south-america-alpaca-wool-video-5482797.jpg?r=1720513014881'}} style={styles.logo}/>
+      <Image source = {require('../assets/app_logo.jpg')} style={styles.logo}/>
       <Button style={styles.logInButton}
         onPress={() => navigation.navigate('Login')}>Log In</Button>
       <Button style={styles.signUpButton}
@@ -77,10 +77,12 @@ const styles = StyleSheet.create({
   },
   logo: { ///RESIZE HERE
     position: 'absolute',
-    width: '50%',
-    height: '20%',
+    width: '100%',
+    height: '50%',
     resizeMode: 'cover',
-    top: 100
+    top: 100,
+    zIndex: 2,
+    left: -35
 
   }
 });

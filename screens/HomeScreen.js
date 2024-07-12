@@ -135,10 +135,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   filterButton: {
+    width: '50%',
     backgroundColor: '#C39BD3', // Purple background color
     marginRight: 10,
   },
   addButton: {
+    width: '50%',
     backgroundColor: '#C39BD3', // Purple background color
   },
   list: {

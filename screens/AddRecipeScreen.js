@@ -20,7 +20,7 @@ const AddRecipeScreen = ({ navigation }) => {
     };
 
     addRecipe(newRecipe);
-    navigation.goBack(); // Navigate back to HomeScreen after adding recipe
+    navigation.navigate("Home"); // Navigate back to HomeScreen after adding recipe
   };
 
   return (
