@@ -1,4 +1,7 @@
-const recipes = [
+
+// recipes.js
+
+let recipes = [
   {
     id: '1',
     title: 'Chocolate Chip Cookies',
@@ -104,4 +107,12 @@ const recipes = [
   dietaryRequirements: ['vegan','vegetarian'],
   }
 ];
+
+export const getRecipes = () => recipes;
+
+export const addRecipe = (newRecipe) => {
+  newRecipe.id = String(recipes.length + 1); // Generate new ID
+  recipes.push(newRecipe);
+};
+
 export default recipes;
