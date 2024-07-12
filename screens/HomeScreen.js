@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
-import { TextInput, Button, Title, Divider, Menu, Checkbox, Text } from 'react-native-paper';
-import recipes from '../data/recipes'
+// HomeScreen.js
 
+import React, { useState } from 'react';
+import { View, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { TextInput, Button, Title, Divider, Menu, Checkbox, Text } from 'react-native-paper';
+import recipes from '../data/recipes';
 
 const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,13 +24,12 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const applyFilters = () => {
-    const filtered = recipes.filter(recipes => {
+    const filtered = recipes.filter(recipe => {
       if (Object.keys(filters).length === 0) return true; // If no filters selected, return all recipes
       return Object.keys(filters).every(filter => {
-        return filters[filter] === true ? recipes.dietaryRequirements?.includes(filter) : true;
+        return filters[filter] === true ? recipe.dietaryRequirements?.includes(filter) : true;
       });
     });
-    console.log(filtered);
     setFilteredRecipes(filtered);
     closeMenu();
   };
@@ -64,9 +64,14 @@ const HomeScreen = ({ navigation }) => {
           Search
         </Button>
       </View>
-      <Button mode="contained" onPress={openMenu} style={styles.filterButton}>
-        Filter Recipes
-      </Button>
+      <View style={styles.buttonsContainer}>
+        <Button mode="contained" onPress={openMenu} style={styles.filterButton}>
+          Filter Recipes
+        </Button>
+        <Button mode="contained" onPress={() => navigation.navigate('AddRecipe')} style={styles.addButton}>
+          Add Recipe
+        </Button>
+      </View>
       <FlatList
         data={filteredRecipes}
         renderItem={renderItem}
@@ -124,9 +129,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#C39BD3', // Purple background color
   },
-  filterButton: {
-    alignSelf: 'flex-start',
+  buttonsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 10,
+  },
+  filterButton: {
+    backgroundColor: '#C39BD3', // Purple background color
+    marginRight: 10,
+  },
+  addButton: {
     backgroundColor: '#C39BD3', // Purple background color
   },
   list: {

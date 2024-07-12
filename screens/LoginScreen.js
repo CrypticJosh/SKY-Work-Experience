@@ -1,40 +1,152 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, Alert, Image } from 'react-native';
+import * as React from 'react';
+import { Video } from 'expo-av';
 import { TextInput, Button } from 'react-native-paper';
+import {Kanit_200ExtraLight, Kanit_400Regular} from '@expo-google-fonts/kanit';
+import {useFonts} from 'expo-font';
 
 const LoginScreen = ({ navigation }) => {
   const handleLogin = () => {
     // Assuming successful login, navigate to HomeScreen
     navigation.navigate('Home');
   };
+  const video = React.useRef(null);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [fontsLoaded] = useFonts ({
+    Kanit_200ExtraLight,
+    Kanit_400Regular
+  });
+  React.useEffect(() => {
+    if (video) {
+      video.current?.playAsync(null);
+    }
+  }, [video]);
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
-    <View style={styles.container}>
-      <TextInput label="Username" style={styles.input} />
-      <TextInput label="Password" secureTextEntry style={styles.input} />
-      <Button mode="contained" onPress={handleLogin} style={styles.button}>
-        Login
-      </Button>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Video
+          ref={video}
+          style={styles.video}
+          source={{
+            uri: 'https://assets.mixkit.co/videos/43925/43925-720.mp4',
+          }}
+          isLooping
+          resizeMode="cover"
+        />
+        <Image style={styles.backButton} source={{uri:'https://pnghq.com/wp-content/uploads/2023/02/left-white-arrow-icon-png-6311.png'}}/>
+        <Button style={styles.backButton} onPress={() => {navigation.navigate("Back")}}></Button>
+        <Text style={styles.instructiveText}>Log In</Text>
+        <Text style={styles.welcomeText}>It's great to see you again!</Text>
+        <View style={styles.containerCover}></View>
+        <TextInput
+          theme={{ roundness: 10 }}
+          style={styles.emailInput}
+          label="Email"
+          value={email}
+          onChangeText={email => setEmail(email)}
+        />
+        <TextInput
+          theme={{ roundness: 10 }}
+          style={styles.passwordInput}
+          label="Password"
+          value={password}
+          onChangeText={password => setPassword(password)}
+          secureTextEntry
+        />
+        <Button style={styles.logInButton} onPress={() => {navigation.navigate("Home")}}>
+        Log In
+        </Button>
+      </View>
+      <View></View>
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+    position: 'relative',
+  },
+  video: {
+    alignSelf: 'center',
+    resizeMode: 'cover',
+    width: '115%',
+    height: '115%',
+    justifyContent: 'space-between',
+  },
+  containerCover: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
     alignItems: 'center',
-    backgroundColor: '#fff', // Adjust background color if needed
+    justifyContent: 'center',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
   },
-  button: {
-    width: '90%',
-    marginVertical: 10,
-    backgroundColor: '#C39BD3', // Adjust button color as needed
+  emailInput: {
+    height: 50,
+    resizeMode: 'stretch',
+    alignSelf: 'center',
+    width: '70%',
+    position: 'absolute',
+    zIndex: 2,
+    top: 450,
+    borderRadius: 10,
   },
-  input: {
-    width: '90%',
-    marginBottom: 10,
+  passwordInput: {
+    height: 50,
+    resizeMode: 'stretch',
+    alignSelf: 'center',
+    width: '70%',
+    position: 'absolute',
+    zIndex: 2,
+    top: 510,
+    borderRadius: 10,
   },
+  logInButton: {
+    height: 40,
+    resizeMode: 'stretch',
+    alignSelf: 'center',
+    width: '70%',
+    position: 'absolute',
+    zIndex: 2,
+    top: 570,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+  },
+  backButton: {
+    height: 35,
+    width: 35,
+    left: 25,
+    position: 'absolute',
+    top: 50,
+    zIndex: 2,
+  },
+  instructiveText: {
+    zIndex: 2,
+    color: '#fff',
+    position: 'absolute',
+    top: 250,
+    alignSelf: 'center',
+    fontSize: 75,
+    fontFamily: 'Kanit_400Regular'
+  },
+  welcomeText: {
+    zIndex: 2,
+    color: '#fff',
+    position: 'absolute',
+    top: 350,
+    alignSelf: 'center',
+    fontSize: 30,
+    fontFamily: 'Kanit_200ExtraLight'
+
+  }
 });
 
 export default LoginScreen;
