@@ -352,20 +352,6 @@ Potential improvements for Snacks From Scratch could include:
 
 ---
 
-## 📸 Screenshots
-
-Screenshots of Snacks From Scratch can be added here.
-
-For example:
-
-```md
-![Home Screen](assets/home-screen.png)
-
-![Recipe Details](assets/recipe-details.png)
-
-![Add Recipe](assets/add-recipe.png)
-```
-
 ---
 
 ## 📚 What I Learned
